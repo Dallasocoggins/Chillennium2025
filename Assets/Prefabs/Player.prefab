@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportPoints: []
+  freezingOn: 0
   points: 12
 --- !u!1 &681092798365092841
 GameObject:
@@ -229,12 +230,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -7719095330858985432, guid: 37d46f993073d8c4da96485d76ca98da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d37bcc3675246e4b9913b6c24d65de5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.49, y: 3.38}
+  m_Size: {x: 1.8, y: 1.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -403,6 +404,7 @@ MonoBehaviour:
   baseCandleIntensity: 0
   candleFlickerFactor: 0
   lightBurstPrefab: {fileID: 2600277407009714156, guid: ebea26d81dc26284793218870ff3c79f, type: 3}
+  candleOn: 1
 --- !u!95 &4055602988679628926
 Animator:
   serializedVersion: 7
