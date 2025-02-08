@@ -146,11 +146,11 @@ Transform:
   m_GameObject: {fileID: 432345331}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.384, y: 0.033, z: 0}
+  m_LocalPosition: {x: 0.38400006, y: 0.032999992, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 866772466}
+  m_Father: {fileID: 2034033177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &432345333
 MonoBehaviour:
@@ -527,7 +527,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2034033177}
-  - {fileID: 432345332}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &866772467
@@ -576,6 +575,7 @@ MonoBehaviour:
   restAirAcceleration: 2
   jumpSpeed: 7
   timeToPeakJumpSpeed: 0.08
+  sprite: {fileID: 2034033177}
 --- !u!114 &866772469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,7 +769,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 432345332}
   m_Father: {fileID: 866772466}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2034033178
