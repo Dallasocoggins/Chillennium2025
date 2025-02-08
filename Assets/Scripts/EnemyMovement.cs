@@ -3,10 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
+using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEditor.FilePathAttribute;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.Rendering.DebugUI;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -34,6 +37,7 @@ public class EnemyMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(RecordTransform());
+        target = FindAnyObjectByType<Player>().transform;
     }
 
     void FixedUpdate()
@@ -58,7 +62,7 @@ public class EnemyMovement : MonoBehaviour
     {
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
-        bool shouldTeleport = yDist > 2 || xDist > 6;
+        bool shouldTeleport = yDist > 4 || xDist > 9;
         if (shouldTeleport && currentState == EnemyState.Chase)
         {
             currentState = EnemyState.Teleport;
@@ -75,15 +79,32 @@ public class EnemyMovement : MonoBehaviour
         if (target == null) return;
         positionQueue.Clear();
 
-        Vector2 direction = (target.position - transform.position).normalized; 
-        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y); 
+        Vector3 direction = (target.position - transform.position).normalized;
+        float moveStep = moveSpeed * Time.fixedDeltaTime;
+        Vector3 nextPosition = transform.position + (direction * moveStep);
 
-        if (direction.x > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        else if (direction.x < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
+        if (IsGapAhead(direction))
+        {
+            return;
+        }
+
+        // Move towards the target
+        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+
+        if ((direction.x > 0 && transform.localScale.x < 0) ||
+            (direction.x < 0 && transform.localScale.x > 0))
+            transform.localScale = -transform.localScale;
     }
 
+    private bool IsGapAhead(Vector3 direction)
+    {
+        float checkDistance = 1.5f;
+        Vector3 checkPosition = transform.position + (Vector3.right * checkDistance * Mathf.Sign(direction.x));
+
+        RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, groundCheckDistance, groundLayer);
+
+        return hit.collider == null; 
+    }
 
     private void Teleport()
     {
@@ -131,13 +152,33 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 FindNearestGroundPosition(Vector3 origin)
     {
         float searchRadius = 5f;
-        int searchSteps = 8; 
+        int searchSteps = 8;
 
-        for (int i = 1; i <= searchRadius; i++) 
+        Vector3 directionToTarget = (target.position - origin).normalized;
+
+
+        // Search in a half-circle in the direction of the target
+        for (int i = 1; i <= searchRadius; i++)
         {
-            for (int j = 0; j < searchSteps; j++) 
+            for (int j = 0; j < searchSteps / 2; j++)
             {
-                float angle = j * (360f / searchSteps);
+                float angle = j * (180f / (searchSteps / 2));
+                Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * i;
+                Vector3 testPosition = origin + offset;
+
+                if (IsGrounded(testPosition))
+                {
+                    return testPosition;
+                }
+            }
+        }
+
+        // If no valid position found, search the full 360 - degree circle
+        for (int i = 1; i <= searchRadius; i++)
+        {
+            for (int j = 0; j < searchSteps; j++)
+            {
+                float angle = j * (360f / searchSteps); // 0 to 360 degrees
                 Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * i;
                 Vector3 testPosition = origin + offset;
 
@@ -160,7 +201,7 @@ public class EnemyMovement : MonoBehaviour
             float yDist = Math.Abs(this.transform.position.y - positionQueue.Peek().y);
             float dist = xDist + yDist;
 
-            timeTillTeleport = dist / moveSpeed;
+            timeTillTeleport = dist / (moveSpeed + 1);
         }
     }
 
