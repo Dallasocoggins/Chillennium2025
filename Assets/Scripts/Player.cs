@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -15,9 +16,11 @@ public class Player : MonoBehaviour
     public float timeToPeakJumpSpeed;
 
     public Transform sprite;
+    public float candleFlickerFactor;
 
     private new Rigidbody2D rigidbody;
     private BoxCollider2D boxCollider;
+    private Light2D candle;
 
     // -1 is the idle value
     private float jumpProgress = -1;
@@ -30,6 +33,7 @@ public class Player : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        candle = GetComponentInChildren<Light2D>();
     }
 
     // Update is called once per frame
@@ -38,8 +42,10 @@ public class Player : MonoBehaviour
         float epsilon = 0.01f;
         if (Mathf.Abs(rigidbody.linearVelocityX) > epsilon)
         {
-            sprite.localScale = new Vector3(-Mathf.Sign(rigidbody.linearVelocityX), 1, 1);
+            sprite.localScale = new Vector3(Mathf.Sign(rigidbody.linearVelocityX), 1, 1);
         }
+
+        candle.intensity = candleFlickerFactor;
     }
 
     private void FixedUpdate()
