@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public float jumpSpeed;
     public float timeToPeakJumpSpeed;
 
+    public Transform sprite;
+
     private new Rigidbody2D rigidbody;
     private BoxCollider2D boxCollider;
 
@@ -33,7 +35,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(IsGrounded());
+        float epsilon = 0.01f;
+        if (Mathf.Abs(rigidbody.linearVelocityX) > epsilon)
+        {
+            sprite.localScale = new Vector3(-Mathf.Sign(rigidbody.linearVelocityX), 1, 1);
+        }
     }
 
     private void FixedUpdate()
