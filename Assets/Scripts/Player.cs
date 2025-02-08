@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
     public float walkSpeed;
@@ -16,10 +17,12 @@ public class Player : MonoBehaviour
     public float timeToPeakJumpSpeed;
 
     public Transform sprite;
+    public float baseCandleIntensity;
     public float candleFlickerFactor;
 
     private new Rigidbody2D rigidbody;
     private BoxCollider2D boxCollider;
+    private Animator animator;
     private Light2D candle;
 
     // -1 is the idle value
@@ -27,12 +30,15 @@ public class Player : MonoBehaviour
 
     private float moveInput;
     private bool jumpInput;
+    private bool candleOn = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
+
         candle = GetComponentInChildren<Light2D>();
     }
 
@@ -45,7 +51,8 @@ public class Player : MonoBehaviour
             sprite.localScale = new Vector3(Mathf.Sign(rigidbody.linearVelocityX), 1, 1);
         }
 
-        candle.intensity = candleFlickerFactor;
+        candle.intensity = baseCandleIntensity * candleFlickerFactor;
+        animator.SetBool("candleOn", candleOn);
     }
 
     private void FixedUpdate()
@@ -116,5 +123,10 @@ public class Player : MonoBehaviour
     public void OnJump(InputValue value)
     {
         jumpInput = value.isPressed;
+    }
+
+    public void OnLightToggle()
+    {
+        candleOn = !candleOn;
     }
 }
