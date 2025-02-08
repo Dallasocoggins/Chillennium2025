@@ -86,7 +86,7 @@ public class EnemyMovement : MonoBehaviour
                 teleportLocation = GetClosestTransform(lp.teleportPoints).position;
             }
 
-            this.transform.position = positionQueue.Dequeue();
+            this.transform.position = teleportLocation;
 
             SetTimeToTeleport();
             lastTeleportTime = Time.time;
