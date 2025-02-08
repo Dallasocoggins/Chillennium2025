@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9140526099401558577}
   - component: {fileID: 9130954087982716309}
   - component: {fileID: 4946249308643238749}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -179,6 +179,7 @@ MonoBehaviour:
   jumpForce: 5
   groundCheckDistance: 1
   lightCheckRadius: 5
+  player: {fileID: 0}
   target: {fileID: 0}
   teleportDistance: 10
   teleportOffset: 5

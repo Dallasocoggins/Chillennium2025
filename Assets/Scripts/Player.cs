@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -26,13 +27,14 @@ public class Player : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Animator animator;
     private Light2D candle;
+    private RadialLightPhysics candlePhysics;
 
     // -1 is the idle value
     private float jumpProgress = -1;
 
     private float moveInput;
     private bool jumpInput;
-    private bool candleOn = true;
+    public bool candleOn = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,6 +44,8 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
 
         candle = GetComponentInChildren<Light2D>();
+        candlePhysics = GetComponentInChildren<RadialLightPhysics>();
+        candlePhysics.freezingOn = false;
     }
 
     // Update is called once per frame
@@ -135,5 +139,11 @@ public class Player : MonoBehaviour
     public void OnLightBurst()
     {
         Instantiate(lightBurstPrefab, candle.transform.position, Quaternion.identity);
+    }
+
+    public void Die()
+    {
+        print("Died");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
