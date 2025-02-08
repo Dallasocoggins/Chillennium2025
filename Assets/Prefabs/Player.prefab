@@ -49,9 +49,9 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.171
+  m_FalloffIntensity: 0.199
   m_Color: {r: 1, g: 0.8623328, b: 0.6933962, a: 1}
-  m_Intensity: 0.4
+  m_Intensity: 0.96
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -74,8 +74,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.2
-  m_PointLightOuterRadius: 2.09
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1.37
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -400,6 +400,7 @@ MonoBehaviour:
   jumpSpeed: 7
   timeToPeakJumpSpeed: 0.08
   sprite: {fileID: 2770050821045537506}
+  baseCandleIntensity: 0
   candleFlickerFactor: 0
 --- !u!95 &4055602988679628926
 Animator:
