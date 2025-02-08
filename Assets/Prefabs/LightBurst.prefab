@@ -158,4 +158,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportPoints: []
+  freezingOn: 1
   burstAliveTime: 4

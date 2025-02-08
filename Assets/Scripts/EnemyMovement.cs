@@ -83,7 +83,7 @@ public class EnemyMovement : MonoBehaviour
             currentState = EnemyState.Chase;
         }
 
-        if (xDist < 3)
+        if (xDist < 5)
         {
             if (player.candleOn)
             {
@@ -102,6 +102,9 @@ public class EnemyMovement : MonoBehaviour
         if ((lightsOnMe > 0 || playerLightOnMe) && onScreen)
         {
             currentState = EnemyState.Freeze;
+        } else
+        {
+            FlipTowardsTarget();
         }
     }
 
@@ -338,6 +341,25 @@ public class EnemyMovement : MonoBehaviour
         {
             currentState = EnemyState.Chase;
         }
+    }
+    private void FlipTowardsTarget()
+    {
+        if (target == null) return;
+
+        Vector3 scale = transform.localScale;
+
+        if (target.position.x > transform.position.x)
+        {
+            // Target is to the right, face right
+            scale.x = Mathf.Abs(scale.x);
+        }
+        else if (target.position.x < transform.position.x)
+        {
+            // Target is to the left, face left
+            scale.x = -Mathf.Abs(scale.x);
+        }
+
+        transform.localScale = scale;
     }
 
 }
