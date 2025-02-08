@@ -159,10 +159,10 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_Intensity
+    attribute: candleFlickerFactor
     path: 
     classID: 114
-    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+    script: {fileID: 11500000, guid: 3d396535050356745939fdff0e5c98cd, type: 3}
     flags: 0
   m_PPtrCurves: []
   m_SampleRate: 60
@@ -174,8 +174,8 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
-      attribute: 898800009
-      script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+      attribute: 2376763536
+      script: {fileID: 11500000, guid: 3d396535050356745939fdff0e5c98cd, type: 3}
       typeID: 114
       customType: 0
       isPPtrCurve: 0
@@ -345,10 +345,10 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_Intensity
+    attribute: candleFlickerFactor
     path: 
     classID: 114
-    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+    script: {fileID: 11500000, guid: 3d396535050356745939fdff0e5c98cd, type: 3}
     flags: 0
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
