@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportPoints: []
+  freezingOn: 1
   points: 12
 --- !u!1 &681092798365092841
 GameObject:
@@ -349,7 +350,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3950475298845703046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +404,7 @@ MonoBehaviour:
   baseCandleIntensity: 0
   candleFlickerFactor: 0
   lightBurstPrefab: {fileID: 2600277407009714156, guid: ebea26d81dc26284793218870ff3c79f, type: 3}
+  candleOn: 1
 --- !u!95 &4055602988679628926
 Animator:
   serializedVersion: 7

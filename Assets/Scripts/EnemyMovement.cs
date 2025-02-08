@@ -36,6 +36,8 @@ public class EnemyMovement : MonoBehaviour
     private bool playerLightOnMe = false;
     private float eatingTime;
 
+    public bool onScreen = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -70,13 +72,13 @@ public class EnemyMovement : MonoBehaviour
     {
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
-        bool shouldTeleport = (yDist > 4 || xDist > 9) && currentState != EnemyState.Freeze;
+        bool shouldTeleport = (yDist > 4 || xDist > 10);
         if (shouldTeleport && currentState == EnemyState.Chase)
         {
             currentState = EnemyState.Teleport;
             SetTimeToTeleport();
         }
-        else if (!shouldTeleport)
+        else if (!shouldTeleport && (currentState != EnemyState.Freeze || !onScreen))
         {
             currentState = EnemyState.Chase;
         }
@@ -87,7 +89,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 playerLightOnMe = true;
             }
-            else if (currentState != EnemyState.Freeze)
+            else if (lightsOnMe <= 0)
             {
                 playerLightOnMe = false;
                 currentState = EnemyState.Eating;
@@ -97,7 +99,7 @@ public class EnemyMovement : MonoBehaviour
             playerLightOnMe = false;
         }
 
-        if (lightsOnMe > 0 || playerLightOnMe)
+        if ((lightsOnMe > 0 || playerLightOnMe) && onScreen)
         {
             currentState = EnemyState.Freeze;
         }
@@ -253,15 +255,7 @@ public class EnemyMovement : MonoBehaviour
     private void Freeze()
     {
         print("Freeze");
-    }
-
-    public void SetFreeze(bool on)
-    {
-        if (on)
-        {
-            currentState = EnemyState.Freeze;
-        }
-        else
+        if (!onScreen)
         {
             currentState = EnemyState.Chase;
         }
@@ -297,6 +291,16 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
+        Vector2 directionToTeleport = (position - transform.position).normalized;
+        float distanceToTeleport = Vector3.Distance(transform.position, position);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTeleport, distanceToTeleport, LayerMask.GetMask("Light"));
+
+        if (hit.collider != null && hit.collider.CompareTag("Light"))
+        {
+            return hit.collider.GetComponent<LightPhysics>();
+        }
+
         return null;
     }
 
@@ -330,6 +334,10 @@ public class EnemyMovement : MonoBehaviour
     public void DecreaseLights()
     {
         lightsOnMe--;
+        if(lightsOnMe <= 0)
+        {
+            currentState = EnemyState.Chase;
+        }
     }
 
 }
