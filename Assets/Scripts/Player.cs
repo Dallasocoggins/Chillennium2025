@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     private new Rigidbody2D rigidbody;
     private BoxCollider2D boxCollider;
 
+    // -1 is the idle value
+    private float jumpProgress = -1;
+
     private float moveInput;
     private bool jumpInput;
 
@@ -65,11 +68,25 @@ public class Player : MonoBehaviour
 
         if (jumpInput)
         {
-            if (IsGrounded())
+            if (IsGrounded() && jumpProgress == -1)
             {
-                rigidbody.linearVelocityY = jumpSpeed;
+                jumpProgress = 0;
             }
-            jumpInput = false;
+
+            if (jumpProgress != -1)
+            {
+                jumpProgress = Mathf.Min(jumpProgress + Time.deltaTime / timeToPeakJumpSpeed, 1);
+                rigidbody.linearVelocityY = jumpSpeed * jumpProgress;
+            }
+
+            if (jumpProgress == 1)
+            {
+                jumpProgress = -1;
+            }
+        }
+        else
+        {
+            jumpProgress = -1;
         }
     }
 
@@ -84,8 +101,8 @@ public class Player : MonoBehaviour
         moveInput = value.Get<float>();
     }
 
-    public void OnJump()
+    public void OnJump(InputValue value)
     {
-        jumpInput = true;
+        jumpInput = value.isPressed;
     }
 }
