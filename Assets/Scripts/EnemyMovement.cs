@@ -30,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
     private float lastTeleportTime = 0;
     private float timeTillTeleport = 3f;
 
-    private int lightsOnMe = 0;
+    private List<LightPhysics> lightsOnMe = new List<LightPhysics>();
     private bool playerLightOnMe = false;
     private float eatingTime;
 
@@ -50,15 +50,18 @@ public class EnemyMovement : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Chase:
+                FlipTowardsTarget();
                 Chase();
                 break;
             case EnemyState.Teleport:
+                FlipTowardsTarget();
                 Teleport();
                 break;
             case EnemyState.Freeze:
                 Freeze();
                 break;
             case EnemyState.Eating:
+                FlipTowardsTarget();
                 Eat();
                 break;
         }
@@ -70,39 +73,23 @@ public class EnemyMovement : MonoBehaviour
     {
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
-        bool shouldTeleport = (yDist > 4 || xDist > 10);
-        if (shouldTeleport && currentState == EnemyState.Chase)
+        bool shouldTeleport = (yDist > 4 || xDist > 15);
+        playerLightOnMe = xDist < 3 && player.candleOn;
+
+        if ((lightsOnMe.Count > 0 || playerLightOnMe) && onScreen)
+        {
+            currentState = EnemyState.Freeze;
+        } else if (shouldTeleport)
         {
             currentState = EnemyState.Teleport;
             SetTimeToTeleport();
         }
-        else if (!shouldTeleport && (currentState != EnemyState.Freeze || !onScreen))
+        else if (!shouldTeleport && xDist > 1)
         {
             currentState = EnemyState.Chase;
-        }
-
-        if (xDist < 5)
-        {
-            if (player.candleOn)
-            {
-                playerLightOnMe = true;
-            }
-            else if (lightsOnMe <= 0)
-            {
-                playerLightOnMe = false;
-                currentState = EnemyState.Eating;
-            }
         } else
         {
-            playerLightOnMe = false;
-        }
-
-        if ((lightsOnMe > 0 || playerLightOnMe) && onScreen)
-        {
-            currentState = EnemyState.Freeze;
-        } else
-        {
-            FlipTowardsTarget();
+            currentState = EnemyState.Eating;
         }
     }
 
@@ -146,10 +133,10 @@ public class EnemyMovement : MonoBehaviour
 
     private bool IsGapAhead(Vector3 direction)
     {
-        float checkDistance = 1.5f;
+        float checkDistance = 3.0f;
         Vector3 checkPosition = transform.position + (Vector3.right * checkDistance * Mathf.Sign(direction.x));
 
-        RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, groundCheckDistance, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, checkDistance, groundLayer);
 
         return hit.collider == null; 
     }
@@ -327,15 +314,22 @@ public class EnemyMovement : MonoBehaviour
         return closest; 
     }
 
-    public void IncreaseLights()
+    public void IncreaseLights(LightPhysics lp)
     {
-        lightsOnMe++;
+        if (!lightsOnMe.Contains(lp))
+        {
+            lightsOnMe.Add(lp);
+        }
     }
 
-    public void DecreaseLights()
+    public void DecreaseLights(LightPhysics lp)
     {
-        lightsOnMe--;
-        if(lightsOnMe <= 0)
+        while (lightsOnMe.Contains(lp))
+        {
+            lightsOnMe.Remove(lp);
+        }
+
+        if(lightsOnMe.Count <= 0)
         {
             currentState = EnemyState.Chase;
         }
