@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -73,6 +74,11 @@ public class Player : MonoBehaviour
         animator.SetInteger("moveSign", moveSign);
         animator.SetBool("isGrounded", IsGrounded());
         candleEnergyUI.proportionLeft = currentLightPoints / maxLightPoints;
+        
+        if (transform.position.y < -10)
+        {
+            Die();
+        }
     }
 
     private void FixedUpdate()
@@ -142,7 +148,7 @@ public class Player : MonoBehaviour
 
     private bool IsGrounded()
     {
-        float epsilon = 0.01f;
+        float epsilon = 0.1f;
         return Physics2D.BoxCast((Vector2)transform.position + boxCollider.offset, boxCollider.size, 0, Vector2.down, epsilon, 1 << 3);
     }
 

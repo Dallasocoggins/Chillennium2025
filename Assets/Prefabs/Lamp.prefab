@@ -306,8 +306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 9084457583491261770}
+  - {fileID: 1964583664244133825}
   freezingOn: 1
   points: 5
 --- !u!1 &2289241664113543746

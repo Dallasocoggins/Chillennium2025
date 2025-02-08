@@ -73,7 +73,7 @@ public class EnemyMovement : MonoBehaviour
     {
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
-        bool shouldTeleport = (yDist > 4 || xDist > 15);
+        bool shouldTeleport = (yDist > 4 || xDist > 10);
         playerLightOnMe = xDist < 3 && player.candleOn;
 
         if ((lightsOnMe.Count > 0 || playerLightOnMe) && onScreen)
@@ -84,7 +84,7 @@ public class EnemyMovement : MonoBehaviour
             currentState = EnemyState.Teleport;
             SetTimeToTeleport();
         }
-        else if (!shouldTeleport && xDist > 1)
+        else if (!shouldTeleport && xDist > 3)
         {
             currentState = EnemyState.Chase;
         } else
@@ -153,14 +153,19 @@ public class EnemyMovement : MonoBehaviour
             if (lp)
             {
                 float myDistanceToTp = Vector3.Distance(this.transform.position, teleportLocation);
-                Vector3 lpTeleportLocation = GetClosestTransform(lp.teleportPoints).position;
-                float LpDistanceToTp = Vector3.Distance(lpTeleportLocation, teleportLocation);
-                float myDistanceToLp = Vector3.Distance(this.transform.position, lpTeleportLocation);
+                Transform lpTpTransform = GetClosestTransform(lp.teleportPoints);
 
-                if (LpDistanceToTp < myDistanceToTp && myDistanceToLp < myDistanceToTp)
+                if (lpTpTransform != null)
                 {
-                    teleportLocation = lpTeleportLocation;
-                    usedLightTeleport = true;
+                    Vector3 lpTeleportLocation = lpTpTransform.position;
+                    float LpDistanceToTp = Vector3.Distance(lpTeleportLocation, teleportLocation);
+                    float myDistanceToLp = Vector3.Distance(this.transform.position, lpTeleportLocation);
+
+                    if (LpDistanceToTp < myDistanceToTp && myDistanceToLp < myDistanceToTp)
+                    {
+                        teleportLocation = lpTeleportLocation;
+                        usedLightTeleport = true;
+                    }
                 }
             }
 
