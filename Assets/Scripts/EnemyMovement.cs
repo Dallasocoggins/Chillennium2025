@@ -17,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     public float lightCheckRadius = 5.0f;
     public Transform target;
     public float teleportDistance = 10;
+    public float teleportOffset = 5.0f;
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
@@ -56,7 +57,7 @@ public class EnemyMovement : MonoBehaviour
     {
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
-        bool shouldTeleport = yDist > 2 || xDist > 5;
+        bool shouldTeleport = yDist > 2 || xDist > 6;
         if (shouldTeleport && currentState == EnemyState.Chase)
         {
             currentState = EnemyState.Teleport;
@@ -70,19 +71,51 @@ public class EnemyMovement : MonoBehaviour
 
     private void Chase()
     {
-        print("Chase");
+        if (target == null) return;
+        positionQueue.Clear();
+
+        Vector2 direction = (target.position - transform.position).normalized; 
+        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y); 
+
+        if (direction.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (direction.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
     }
+
 
     private void Teleport()
     {
         if (Time.time - lastTeleportTime >= timeTillTeleport && positionQueue.Count > 0)
         {
-            Vector3 teleportLocation = positionQueue.Peek();
+            Vector3 teleportLocation = positionQueue.Dequeue();
             LightPhysics lp = IsLightNearby(teleportLocation);
+
+            bool usedLightTeleport = false;
 
             if (lp)
             {
-                teleportLocation = GetClosestTransform(lp.teleportPoints).position;
+                float myDistanceToTp = Vector3.Distance(this.transform.position, teleportLocation);
+                Vector3 lpTeleportLocation = GetClosestTransform(lp.teleportPoints).position;
+                float LpDistanceToTp = Vector3.Distance(lpTeleportLocation, teleportLocation);
+                float myDistanceToLp = Vector3.Distance(this.transform.position, lpTeleportLocation);
+
+                if (LpDistanceToTp < myDistanceToTp && myDistanceToLp < myDistanceToTp)
+                {
+                    teleportLocation = lpTeleportLocation;
+                    usedLightTeleport = true;
+                }
+            }
+
+            if (!usedLightTeleport)
+            {
+                Vector3 direction = (teleportLocation - transform.position).normalized;
+                teleportLocation -= direction * teleportOffset;
+            }
+
+            if (!IsGrounded(teleportLocation))
+            {
+                teleportLocation = FindNearestGroundPosition(teleportLocation);
             }
 
             this.transform.position = teleportLocation;
@@ -93,6 +126,30 @@ public class EnemyMovement : MonoBehaviour
             print("Time till teleport" + timeTillTeleport);
         }
     }
+
+    private Vector3 FindNearestGroundPosition(Vector3 origin)
+    {
+        float searchRadius = 5f;
+        int searchSteps = 8; 
+
+        for (int i = 1; i <= searchRadius; i++) 
+        {
+            for (int j = 0; j < searchSteps; j++) 
+            {
+                float angle = j * (360f / searchSteps);
+                Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * i;
+                Vector3 testPosition = origin + offset;
+
+                if (IsGrounded(testPosition))
+                {
+                    return testPosition;
+                }
+            }
+        }
+
+        return origin;
+    }
+
 
     private void SetTimeToTeleport()
     {
@@ -127,12 +184,19 @@ public class EnemyMovement : MonoBehaviour
     {
         while (true) // Runs indefinitely
         {
-            if (target != null)
+            if (target != null && IsGrounded(target.position))
             {
                 positionQueue.Enqueue(target.position);
             }
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    private bool IsGrounded(Vector3 position)
+    {
+        float groundCheckDistance = 1f; // Adjust this based on your game's needs
+        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, groundCheckDistance, groundLayer);
+        return hit.collider != null; // Returns true if ground exists below the position
     }
 
     private LightPhysics IsLightNearby(Vector3 position)

@@ -178,8 +178,9 @@ MonoBehaviour:
   moveSpeed: 2
   jumpForce: 5
   groundCheckDistance: 0.5
+  lightCheckRadius: 5
   target: {fileID: 0}
   teleportDistance: 10
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
