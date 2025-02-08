@@ -25,7 +25,7 @@ public class LightPhysics : MonoBehaviour
         EnemyMovement enemy = collision.gameObject.GetComponent<EnemyMovement>();
         if (enemy != null && freezingOn)
         {
-            enemy.IncreaseLights();
+            enemy.IncreaseLights(this);
         }
     }
 
@@ -34,7 +34,7 @@ public class LightPhysics : MonoBehaviour
         EnemyMovement enemy = collision.gameObject.GetComponent<EnemyMovement>();
         if (enemy != null && freezingOn)
         {
-            enemy.DecreaseLights();
+            enemy.DecreaseLights(this);
         }
     }
 
