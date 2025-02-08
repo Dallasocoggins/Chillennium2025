@@ -6,6 +6,7 @@ public class LightPhysics : MonoBehaviour
 {
     public List<Transform> teleportPoints;
     private Collider2D colliderComponent;
+    public bool freezingOn;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,18 +23,18 @@ public class LightPhysics : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         EnemyMovement enemy = collision.gameObject.GetComponent<EnemyMovement>();
-        if (enemy != null)
+        if (enemy != null && freezingOn)
         {
-            enemy.SetFreeze(true);
+            enemy.IncreaseLights();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         EnemyMovement enemy = collision.gameObject.GetComponent<EnemyMovement>();
-        if (enemy != null)
+        if (enemy != null && freezingOn)
         {
-            enemy.SetFreeze(false);
+            enemy.DecreaseLights();
         }
     }
 

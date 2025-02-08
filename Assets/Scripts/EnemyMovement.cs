@@ -12,12 +12,13 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    enum EnemyState { Chase, Teleport, Freeze }
+    enum EnemyState { Chase, Teleport, Freeze, Eating }
 
     public float moveSpeed = 2f;
     public float jumpForce = 5f;
     public float groundCheckDistance = 0.5f;
     public float lightCheckRadius = 5.0f;
+    public Player player;
     public Transform target;
     public float teleportDistance = 10;
     public float teleportOffset = 5.0f;
@@ -31,12 +32,17 @@ public class EnemyMovement : MonoBehaviour
     private float lastTeleportTime = 0;
     private float timeTillTeleport = 3f;
 
+    private int lightsOnMe = 0;
+    private bool playerLightOnMe = false;
+    private float eatingTime;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(RecordTransform());
-        target = FindAnyObjectByType<Player>().transform;
+        player = FindAnyObjectByType<Player>();
+        target = player.transform;
     }
 
     void FixedUpdate()
@@ -52,16 +58,19 @@ public class EnemyMovement : MonoBehaviour
             case EnemyState.Freeze:
                 Freeze();
                 break;
+            case EnemyState.Eating:
+                Eat();
+                break;
         }
 
-        if(currentState != EnemyState.Freeze) UpdateState();
+        UpdateState();
     }
 
     private void UpdateState()
     {
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
-        bool shouldTeleport = yDist > 4 || xDist > 9;
+        bool shouldTeleport = (yDist > 4 || xDist > 9) && currentState != EnemyState.Freeze;
         if (shouldTeleport && currentState == EnemyState.Chase)
         {
             currentState = EnemyState.Teleport;
@@ -71,11 +80,48 @@ public class EnemyMovement : MonoBehaviour
         {
             currentState = EnemyState.Chase;
         }
+
+        if (xDist < 3)
+        {
+            if (player.candleOn)
+            {
+                playerLightOnMe = true;
+            }
+            else if (currentState != EnemyState.Freeze)
+            {
+                playerLightOnMe = false;
+                currentState = EnemyState.Eating;
+            }
+        } else
+        {
+            playerLightOnMe = false;
+        }
+
+        if (lightsOnMe > 0 || playerLightOnMe)
+        {
+            currentState = EnemyState.Freeze;
+        }
     }
+
+    private void Eat()
+    {
+        eatingTime += Time.deltaTime;
+
+        if (eatingTime >= 3f)
+        {
+            if (player != null)
+            {
+                player.Die();
+                eatingTime = 0f;
+            }
+        }
+    }
+
 
     private void Chase()
     {
         if (target == null) return;
+
         positionQueue.Clear();
 
         Vector3 direction = (target.position - transform.position).normalized;
@@ -274,6 +320,16 @@ public class EnemyMovement : MonoBehaviour
         }
 
         return closest; 
+    }
+
+    public void IncreaseLights()
+    {
+        lightsOnMe++;
+    }
+
+    public void DecreaseLights()
+    {
+        lightsOnMe--;
     }
 
 }
