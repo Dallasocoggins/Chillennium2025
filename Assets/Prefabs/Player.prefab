@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4349891096964055133}
   - component: {fileID: 5133595779262229738}
-  - component: {fileID: 6343150425497991489}
   - component: {fileID: 7653066602903171031}
   - component: {fileID: 8627491885417925487}
   m_Layer: 6
@@ -50,7 +49,7 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.171
   m_Color: {r: 1, g: 0.8623328, b: 0.6933962, a: 1}
   m_Intensity: 0.4
   m_LightVolumeIntensity: 1
@@ -65,7 +64,7 @@ MonoBehaviour:
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
   m_ShadowsEnabled: 1
-  m_ShadowIntensity: 0.75
+  m_ShadowIntensity: 1
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
   m_ShadowVolumeIntensityEnabled: 0
@@ -75,8 +74,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.4
-  m_PointLightOuterRadius: 1.22
+  m_PointLightInnerRadius: 0.2
+  m_PointLightOuterRadius: 2.09
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -87,28 +86,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!95 &6343150425497991489
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186184584050301582}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d9ed5c554ba63a24ebd5bdc18cc32b7e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!60 &7653066602903171031
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -251,8 +228,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -4103405654208872185, guid: 2849efa8764705042a2ffd7f94ad9961, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -7719095330858985432, guid: 37d46f993073d8c4da96485d76ca98da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -276,6 +253,7 @@ GameObject:
   - component: {fileID: 7184354883646077815}
   - component: {fileID: 3950475298845703046}
   - component: {fileID: 7876043051641214768}
+  - component: {fileID: 4055602988679628926}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -422,3 +400,26 @@ MonoBehaviour:
   jumpSpeed: 7
   timeToPeakJumpSpeed: 0.08
   sprite: {fileID: 2770050821045537506}
+  candleFlickerFactor: 0
+--- !u!95 &4055602988679628926
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8213782425465828501}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a6c4b5d269fa824e94f24bfd5d76a76, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
