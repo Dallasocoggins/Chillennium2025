@@ -18,6 +18,7 @@ public class EnemyMovement : MonoBehaviour
     public float lightCheckRadius = 5.0f;
     public Transform target;
     public float teleportDistance = 10;
+    public float teleportOffset = 5.0f;
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
@@ -57,7 +58,7 @@ public class EnemyMovement : MonoBehaviour
     {
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
-        bool shouldTeleport = yDist > 2 || xDist > 5;
+        bool shouldTeleport = yDist > 2 || xDist > 6;
         if (shouldTeleport && currentState == EnemyState.Chase)
         {
             currentState = EnemyState.Teleport;
@@ -71,8 +72,18 @@ public class EnemyMovement : MonoBehaviour
 
     private void Chase()
     {
-        print("Chase");
+        if (target == null) return;
+        positionQueue.Clear();
+
+        Vector2 direction = (target.position - transform.position).normalized; 
+        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y); 
+
+        if (direction.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (direction.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
     }
+
 
     private void Teleport()
     {
@@ -80,6 +91,8 @@ public class EnemyMovement : MonoBehaviour
         {
             Vector3 teleportLocation = positionQueue.Dequeue();
             LightPhysics lp = IsLightNearby(teleportLocation);
+
+            bool usedLightTeleport = false;
 
             if (lp)
             {
@@ -91,7 +104,19 @@ public class EnemyMovement : MonoBehaviour
                 if (LpDistanceToTp < myDistanceToTp && myDistanceToLp < myDistanceToTp)
                 {
                     teleportLocation = lpTeleportLocation;
+                    usedLightTeleport = true;
                 }
+            }
+
+            if (!usedLightTeleport)
+            {
+                Vector3 direction = (teleportLocation - transform.position).normalized;
+                teleportLocation -= direction * teleportOffset;
+            }
+
+            if (!IsGrounded(teleportLocation))
+            {
+                teleportLocation = FindNearestGroundPosition(teleportLocation);
             }
 
             this.transform.position = teleportLocation;
@@ -102,6 +127,30 @@ public class EnemyMovement : MonoBehaviour
             print("Time till teleport" + timeTillTeleport);
         }
     }
+
+    private Vector3 FindNearestGroundPosition(Vector3 origin)
+    {
+        float searchRadius = 5f;
+        int searchSteps = 8; 
+
+        for (int i = 1; i <= searchRadius; i++) 
+        {
+            for (int j = 0; j < searchSteps; j++) 
+            {
+                float angle = j * (360f / searchSteps);
+                Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * i;
+                Vector3 testPosition = origin + offset;
+
+                if (IsGrounded(testPosition))
+                {
+                    return testPosition;
+                }
+            }
+        }
+
+        return origin;
+    }
+
 
     private void SetTimeToTeleport()
     {
