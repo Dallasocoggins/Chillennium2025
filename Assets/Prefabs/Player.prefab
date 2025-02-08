@@ -405,11 +405,10 @@ MonoBehaviour:
   candleFlickerFactor: 0
   lightBurstPrefab: {fileID: 2600277407009714156, guid: ebea26d81dc26284793218870ff3c79f, type: 3}
   lightBurstCooldown: 2
-  maxLightPoints: 0
-  currentLightPoints: 0
-  candlePointDrain: 0
-  lightBurstCost: 0
-  candleEnergyUI: {fileID: 0}
+  maxLightPoints: 10
+  currentLightPoints: 10
+  candlePointDrain: 0.1
+  lightBurstCost: 4
   candleOn: 1
 --- !u!95 &4055602988679628926
 Animator:
