@@ -51,14 +51,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float epsilon = 0.01f;
-        if (Mathf.Abs(rigidbody.linearVelocityX) > epsilon)
-        {
-            sprite.localScale = new Vector3(Mathf.Sign(rigidbody.linearVelocityX), 1, 1);
-        }
-
         candle.intensity = baseCandleIntensity * candleFlickerFactor;
         animator.SetBool("candleOn", candleOn);
+        int moveSign = (int)Mathf.Sign(moveInput);
+        var epsilon = 0.1f;
+        if (Mathf.Abs(moveInput) < epsilon)
+        {
+            moveSign = 0;
+        }
+        animator.SetInteger("moveSign", moveSign);
+        animator.SetBool("isGrounded", IsGrounded());
     }
 
     private void FixedUpdate()
@@ -96,6 +98,7 @@ public class Player : MonoBehaviour
             if (IsGrounded() && jumpProgress == -1)
             {
                 jumpProgress = 0;
+                animator.SetTrigger("jump");
             }
 
             if (jumpProgress != -1)
