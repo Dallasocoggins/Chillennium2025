@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5133595779262229738}
   - component: {fileID: 7653066602903171031}
   - component: {fileID: 8627491885417925487}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: CandleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,6 +402,7 @@ MonoBehaviour:
   sprite: {fileID: 2770050821045537506}
   baseCandleIntensity: 0
   candleFlickerFactor: 0
+  lightBurstPrefab: {fileID: 2600277407009714156, guid: ebea26d81dc26284793218870ff3c79f, type: 3}
 --- !u!95 &4055602988679628926
 Animator:
   serializedVersion: 7

@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     public float baseCandleIntensity;
     public float candleFlickerFactor;
 
+    public GameObject lightBurstPrefab;
+
     private new Rigidbody2D rigidbody;
     private BoxCollider2D boxCollider;
     private Animator animator;
@@ -128,5 +130,10 @@ public class Player : MonoBehaviour
     public void OnLightToggle()
     {
         candleOn = !candleOn;
+    }
+
+    public void OnLightBurst()
+    {
+        Instantiate(lightBurstPrefab, candle.transform.position, Quaternion.identity);
     }
 }
