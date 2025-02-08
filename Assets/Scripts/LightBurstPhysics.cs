@@ -29,6 +29,6 @@ public class LightBurstPhysics : LightPhysics
     IEnumerator DestroyAfterDelay()
     {
         yield return new WaitForSeconds(burstAliveTime);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

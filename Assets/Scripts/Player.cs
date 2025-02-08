@@ -22,15 +22,24 @@ public class Player : MonoBehaviour
     public float candleFlickerFactor;
 
     public GameObject lightBurstPrefab;
+    public float lightBurstCooldown;
 
+    public float maxLightPoints;
+    public float currentLightPoints;
+    public float candlePointDrain; // points / s
+    public float lightBurstCost;
+   
     private new Rigidbody2D rigidbody;
     private BoxCollider2D boxCollider;
     private Animator animator;
     private Light2D candle;
     private RadialLightPhysics candlePhysics;
+    private CandleEnergyUI candleEnergyUI;
 
     // -1 is the idle value
     private float jumpProgress = -1;
+
+    private float lightBurstCurrentCooldown;
 
     private float moveInput;
     private bool jumpInput;
@@ -46,6 +55,8 @@ public class Player : MonoBehaviour
         candle = GetComponentInChildren<Light2D>();
         candlePhysics = GetComponentInChildren<RadialLightPhysics>();
         candlePhysics.freezingOn = false;
+
+        candleEnergyUI = FindAnyObjectByType<CandleEnergyUI>();
     }
 
     // Update is called once per frame
@@ -61,6 +72,7 @@ public class Player : MonoBehaviour
         }
         animator.SetInteger("moveSign", moveSign);
         animator.SetBool("isGrounded", IsGrounded());
+        candleEnergyUI.proportionLeft = currentLightPoints / maxLightPoints;
     }
 
     private void FixedUpdate()
@@ -116,6 +128,16 @@ public class Player : MonoBehaviour
         {
             jumpProgress = -1;
         }
+
+        lightBurstCurrentCooldown = Mathf.Max(lightBurstCurrentCooldown - Time.fixedDeltaTime, 0);
+        if (candleOn)
+        {
+            currentLightPoints -= candlePointDrain * Time.fixedDeltaTime;
+        }
+        if (currentLightPoints <= 0)
+        {
+            candleOn = false;
+        }
     }
 
     private bool IsGrounded()
@@ -137,11 +159,20 @@ public class Player : MonoBehaviour
     public void OnLightToggle()
     {
         candleOn = !candleOn;
+        if (currentLightPoints <= 0)
+        {
+            candleOn = false;
+        }
     }
 
     public void OnLightBurst()
     {
-        Instantiate(lightBurstPrefab, candle.transform.position, Quaternion.identity);
+        if (lightBurstCurrentCooldown <= 0 && currentLightPoints >= lightBurstCost)
+        {
+            Instantiate(lightBurstPrefab, candle.transform.position, Quaternion.identity);
+            lightBurstCurrentCooldown = lightBurstCooldown;
+            currentLightPoints -= lightBurstCost;
+        }
     }
 
     public void Die()

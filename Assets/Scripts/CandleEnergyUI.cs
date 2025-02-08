@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CandleEnergy : MonoBehaviour
+public class CandleEnergyUI : MonoBehaviour
 {
     public float lengthWhenFull;
     public float lengthWhenEmpty;
     [Range(0f, 1f)]
-    public float t;
+    public float proportionLeft;
 
     public Image stem;
     public Image end;
@@ -31,6 +31,6 @@ public class CandleEnergy : MonoBehaviour
 
     private float GetLength()
     {
-        return Mathf.Lerp(lengthWhenEmpty, lengthWhenFull, t);
+        return Mathf.Lerp(lengthWhenEmpty, lengthWhenFull, proportionLeft);
     }
 }

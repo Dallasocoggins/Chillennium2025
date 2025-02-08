@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d396535050356745939fdff0e5c98cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 4
+  walkSpeed: 3
   walkAcceleration: 10
   turnaroundAcceleration: 50
   restGroundedAcceleration: 15
@@ -404,6 +404,12 @@ MonoBehaviour:
   baseCandleIntensity: 0
   candleFlickerFactor: 0
   lightBurstPrefab: {fileID: 2600277407009714156, guid: ebea26d81dc26284793218870ff3c79f, type: 3}
+  lightBurstCooldown: 2
+  maxLightPoints: 0
+  currentLightPoints: 0
+  candlePointDrain: 0
+  lightBurstCost: 0
+  candleEnergyUI: {fileID: 0}
   candleOn: 1
 --- !u!95 &4055602988679628926
 Animator:

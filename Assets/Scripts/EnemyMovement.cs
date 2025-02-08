@@ -24,7 +24,6 @@ public class EnemyMovement : MonoBehaviour
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
-    private bool isGrounded;
     private EnemyState currentState = EnemyState.Chase;
 
     public Queue<Vector3> positionQueue = new Queue<Vector3>();
