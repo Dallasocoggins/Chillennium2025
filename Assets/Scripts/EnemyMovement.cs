@@ -15,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
     public float moveSpeed = 2f;
     public float jumpForce = 5f;
     public float groundCheckDistance = 0.5f;
+    public float lightCheckRadius = 5.0f;
     public Transform target;
     public float teleportDistance = 10;
     public LayerMask groundLayer;
@@ -77,6 +78,14 @@ public class EnemyMovement : MonoBehaviour
     {
         if (Time.time - lastTeleportTime >= timeTillTeleport && positionQueue.Count > 0)
         {
+            Vector3 teleportLocation = positionQueue.Peek();
+            LightPhysics lp = IsLightNearby(teleportLocation);
+
+            if (lp)
+            {
+                teleportLocation = GetClosestTransform(lp.teleportPoints).position;
+            }
+
             this.transform.position = positionQueue.Dequeue();
 
             SetTimeToTeleport();
@@ -126,4 +135,41 @@ public class EnemyMovement : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
     }
+
+    private LightPhysics IsLightNearby(Vector3 position)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, lightCheckRadius);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Light"))
+            {
+                return collider.GetComponent<LightPhysics>();
+            }
+        }
+
+        return null;
+    }
+
+    Transform GetClosestTransform(List<Transform> transforms)
+    {
+        if (transforms == null || transforms.Count == 0)
+            return null;
+
+        Transform closest = null;
+        float minDistance = float.MaxValue;
+        Vector3 currentPosition = transform.position;
+
+        foreach (Transform t in transforms)
+        {
+            float distance = Vector3.Distance(currentPosition, t.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closest = t;
+            }
+        }
+
+        return closest; 
+    }
+
 }
