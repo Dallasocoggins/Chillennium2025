@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class RadialLightPhysics : LightPhysics
 {
-    public int points;
+    public int points = 12;
 
     private new Light2D light;
     private new PolygonCollider2D collider;

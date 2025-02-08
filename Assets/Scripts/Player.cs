@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         float epsilon = 0.01f;
-        return Physics2D.BoxCast((Vector2)transform.position + boxCollider.offset, boxCollider.size, 0, Vector2.down, epsilon);
+        return Physics2D.BoxCast((Vector2)transform.position + boxCollider.offset, boxCollider.size, 0, Vector2.down, epsilon, 1 << 3);
     }
 
     public void OnMove(InputValue value)
