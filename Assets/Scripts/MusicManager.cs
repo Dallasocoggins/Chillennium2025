@@ -5,7 +5,9 @@ public class MusicManager : MonoBehaviour
     public float farDistanceToMonster;
 
     public AudioClip[] teleportClips;
+    public float teleportCooldown;
     public AudioClip jumpscare;
+    public float jumpscareCooldown;
     public AudioClip ambientBass;
     public float ambientBassCooldown;
     public AudioClip ambientGong;
@@ -14,6 +16,8 @@ public class MusicManager : MonoBehaviour
     private static MusicManager instance;
 
     private GameObject templateAudioPlayer;
+    private float timeSinceTeleport;
+    private float timeSinceJumpscare;
     private float timeSinceBass;
     private float timeSinceGong;
 
@@ -40,6 +44,8 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeSinceTeleport += Time.unscaledDeltaTime;
+        timeSinceJumpscare += Time.unscaledDeltaTime;
         timeSinceBass += Time.unscaledDeltaTime;
         timeSinceGong += Time.unscaledDeltaTime;
 
@@ -69,7 +75,7 @@ public class MusicManager : MonoBehaviour
 
     public void MonsterTeleport(float distanceFromPlayer, Vector3 position)
     {
-        if (distanceFromPlayer > farDistanceToMonster)
+        if (timeSinceTeleport > teleportCooldown && distanceFromPlayer > farDistanceToMonster)
         {
             var index = (int)(teleportClips.Length * Random.value);
             if (index == teleportClips.Length)
@@ -82,6 +88,10 @@ public class MusicManager : MonoBehaviour
     }
 
     public void MonsterAppearsNextToPlayer() {
-        PlayAudio(jumpscare, false, Vector3.zero);
+        if (timeSinceJumpscare > jumpscareCooldown)
+        {
+            PlayAudio(jumpscare, false, Vector3.zero);
+            timeSinceJumpscare = 0;
+        }
     }
 }
