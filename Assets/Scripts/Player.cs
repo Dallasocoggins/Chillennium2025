@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         float epsilon = 0.1f;
-        var hit = Physics2D.BoxCast((Vector2)transform.position + boxCollider.offset, boxCollider.size, 0, Vector2.down, epsilon, 1 << 3);
+        var hit = Physics2D.BoxCast((Vector2)transform.position + boxCollider.offset + Vector2.down * boxCollider.edgeRadius, boxCollider.size, 0, Vector2.down, epsilon, 1 << 3);
         if (hit)
         {
             // If we hit a one-way platform that doesn't count
