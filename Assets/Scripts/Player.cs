@@ -97,7 +97,10 @@ public class Player : MonoBehaviour
         }
         animator.SetInteger("moveSign", moveSign);
         animator.SetBool("isGrounded", IsGrounded());
-        candleEnergyUI.proportionLeft = currentLightPoints / maxLightPoints;
+        if (candleEnergyUI != null)
+        {
+            candleEnergyUI.proportionLeft = currentLightPoints / maxLightPoints;
+        }
         
         if (transform.position.y < -50)
         {
