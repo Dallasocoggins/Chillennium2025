@@ -48,7 +48,7 @@ MonoBehaviour:
   teleportClips:
   - {fileID: 8300000, guid: 5eab8d5dc4b62e14e8e4341a0b9021ee, type: 3}
   - {fileID: 8300000, guid: b9f41d6c009b6c64394174d242b08864, type: 3}
-  jumpscare: {fileID: 0}
+  jumpscare: {fileID: 8300000, guid: a721435fe34c7d142af5d9b659ea39ca, type: 3}
   ambientBass: {fileID: 8300000, guid: 1532651b505080b4ab3e0e7948610319, type: 3}
   ambientBassCooldown: 30
   ambientGong: {fileID: 8300000, guid: c942377d97c510d4988e9224dc9862be, type: 3}
