@@ -74,7 +74,7 @@ public class EnemyMovement : MonoBehaviour
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
         bool shouldTeleport = (yDist > 4 || xDist > 10);
-        playerLightOnMe = xDist < 3 && player.candleOn;
+        playerLightOnMe = xDist < 5.5 && player.candleOn;
 
         if ((lightsOnMe.Count > 0 || playerLightOnMe) && onScreen)
         {
@@ -84,7 +84,7 @@ public class EnemyMovement : MonoBehaviour
             currentState = EnemyState.Teleport;
             SetTimeToTeleport();
         }
-        else if (!shouldTeleport && xDist > 3)
+        else if (!shouldTeleport && xDist > 3.5)
         {
             currentState = EnemyState.Chase;
         } else
@@ -334,7 +334,7 @@ public class EnemyMovement : MonoBehaviour
             lightsOnMe.Remove(lp);
         }
 
-        if(lightsOnMe.Count <= 0)
+        if(lightsOnMe.Count <= 0 && !playerLightOnMe)
         {
             currentState = EnemyState.Chase;
         }

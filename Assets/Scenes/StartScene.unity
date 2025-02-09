@@ -527,7 +527,7 @@ MonoBehaviour:
     rid: 8919274804048298083
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 1940055988}
+    m_Mesh: {fileID: 2001543485}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0.44999695, y: 0.44999695, z: 0}
@@ -585,7 +585,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.82, y: 0.98}
+    oldSize: {x: 4.5466666, y: 0.6533333}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -922,6 +922,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 622405578}
     m_Modifications:
+    - target: {fileID: 3146506280140690253, guid: aceecda9bb1077e49a462eaca534c619, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Credits
+      objectReference: {fileID: 0}
     - target: {fileID: 4266482468806252713, guid: aceecda9bb1077e49a462eaca534c619, type: 3}
       propertyPath: m_text
       value: Credits
@@ -1582,6 +1586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportPoints: []
+  freezingOn: 0
   points: 5
 --- !u!60 &1618591238
 PolygonCollider2D:
@@ -1807,7 +1812,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aceecda9bb1077e49a462eaca534c619, type: 3}
---- !u!43 &1940055988
+--- !u!43 &2001543485
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1980,6 +1985,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 622405578}
     m_Modifications:
+    - target: {fileID: 3146506280140690253, guid: aceecda9bb1077e49a462eaca534c619, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4353579809444962225, guid: aceecda9bb1077e49a462eaca534c619, type: 3}
       propertyPath: m_Name
       value: Button
