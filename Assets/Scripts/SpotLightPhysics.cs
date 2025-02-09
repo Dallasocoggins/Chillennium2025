@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -32,7 +33,8 @@ public class SpotLightPhysics : LightPhysics
             var angle = Mathf.Lerp(startAngle, endAngle, (float)i / (points - 1));
             var direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
             var worldDirection = transform.localToWorldMatrix * direction;
-            var hit = Physics2D.Raycast(transform.position, worldDirection, lightRadius, 1 << 3);
+            var hits = Physics2D.RaycastAll(transform.position, worldDirection, lightRadius, 1 << 3);
+            var hit = hits.FirstOrDefault((hit) => hit.collider.tag != "OneWayPlatform");
             var actualRadius = hit ? hit.distance : lightRadius;
             colliderPoints[i] = direction * actualRadius;
         }
