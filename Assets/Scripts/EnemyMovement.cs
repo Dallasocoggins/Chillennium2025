@@ -51,7 +51,8 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        float speedMultiplier = currentState == EnemyState.Freeze && freezeTimeLeft <= 0 ? 0 : 1;
+        var epsilon = 0.01f;
+        float speedMultiplier = currentState == EnemyState.Freeze && rb.linearVelocity.magnitude < epsilon ? 0 : 1;
         animator.SetFloat("speedMultiplier", speedMultiplier);
     }
 
