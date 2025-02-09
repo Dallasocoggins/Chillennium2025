@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public float currentLightPoints;
     public float candlePointDrain; // points / s
     public float lightBurstCost;
+    public float flameLightPoints;
 
     public float keyUIGrowTime;
    
@@ -227,6 +228,11 @@ public class Player : MonoBehaviour
     public void CollectKey()
     {
         keyCollected = true;
+    }
+
+    public void CollectFlame()
+    {
+        currentLightPoints = Mathf.Min(currentLightPoints + flameLightPoints, maxLightPoints);
     }
 
     public void UnlockDoor()

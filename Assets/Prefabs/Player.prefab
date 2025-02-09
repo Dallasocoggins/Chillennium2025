@@ -497,6 +497,7 @@ MonoBehaviour:
   currentLightPoints: 10
   candlePointDrain: 0.1
   lightBurstCost: 4
+  flameLightPoints: 3
   keyUIGrowTime: 0.1
 --- !u!95 &4055602988679628926
 Animator:
