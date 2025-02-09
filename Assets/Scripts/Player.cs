@@ -271,16 +271,6 @@ public class Player : MonoBehaviour
             keyCollected = false;
             Time.timeScale = 0;
             fadeScreen.FadeToBlack();
-            LoadNextScene();
-        }
-    }
-
-    public void LoadNextScene()
-    {
-        int buildIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if(buildIndex < SceneManager.sceneCount - 1)
-        {
-            SceneManager.LoadScene(buildIndex);
         }
     }
 }
