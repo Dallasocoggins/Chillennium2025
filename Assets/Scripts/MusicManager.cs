@@ -15,6 +15,7 @@ public class MusicManager : MonoBehaviour
     public AudioClip ambientGong;
     public float ambientGongCooldown;
     public AudioClip die;
+    public AudioClip eaten;
     public float timeToMuteMusic;
 
     public int[] menuSceneIds;
@@ -119,5 +120,10 @@ public class MusicManager : MonoBehaviour
     public void Die()
     {
         PlayAudio(die, false, Vector3.zero);
+    }
+
+    public void Eaten()
+    {
+        PlayAudio(eaten, false, Vector3.zero);
     }
 }

@@ -58,6 +58,7 @@ MonoBehaviour:
   ambientGong: {fileID: 8300000, guid: c942377d97c510d4988e9224dc9862be, type: 3}
   ambientGongCooldown: 20
   die: {fileID: 8300000, guid: bed466c53a4ec8a4e8925a26bcbcffe8, type: 3}
+  eaten: {fileID: 8300000, guid: 184b5aea91392394fa8f9a724e1764f8, type: 3}
   timeToMuteMusic: 0.5
   menuSceneIds: 0000000004000000
 --- !u!1 &8528569418765330285

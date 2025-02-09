@@ -275,6 +275,7 @@ public class Player : MonoBehaviour
         animator.SetLayerWeight(3, 0);
         animator.SetTrigger("eaten");
         StartCoroutine(DieAfterDelay(2f));
+        FindAnyObjectByType<MusicManager>().Eaten();
     }
 
     public IEnumerator DieAfterDelay(float delay)
