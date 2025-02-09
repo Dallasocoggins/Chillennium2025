@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     public float currentLightPoints;
     public float candlePointDrain; // points / s
     public float lightBurstCost;
+
+    public float keyUIGrowTime;
    
     private new Rigidbody2D rigidbody;
     private BoxCollider2D boxCollider;
@@ -36,15 +38,19 @@ public class Player : MonoBehaviour
     private Light2D candle;
     private RadialLightPhysics candlePhysics;
     private CandleEnergyUI candleEnergyUI;
+    private GameObject keyUI;
+    private FadeScreen fadeScreen;
 
     // -1 is the idle value
     private float jumpProgress = -1;
 
     private float lightBurstCurrentCooldown;
+    private float keyUIProgress = 0;
 
     private float moveInput;
     private bool jumpInput;
-    public bool candleOn = true;
+    public bool candleOn { get; private set; } = true;
+    private bool keyCollected = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,6 +64,10 @@ public class Player : MonoBehaviour
         candlePhysics.freezingOn = false;
 
         candleEnergyUI = FindAnyObjectByType<CandleEnergyUI>();
+        keyUI = GameObject.Find("KeyUI");
+        fadeScreen = FindAnyObjectByType<FadeScreen>();
+
+        keyUI.transform.localScale = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -79,6 +89,16 @@ public class Player : MonoBehaviour
         {
             Die();
         }
+
+        if (keyCollected)
+        {
+            keyUIProgress = Mathf.Min(keyUIProgress + Time.deltaTime, 1);
+        }
+        else
+        {
+            keyUIProgress = Mathf.Max(keyUIProgress - Time.deltaTime, 0);
+        }
+        keyUI.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, Mathf.SmoothStep(0, 1, keyUIProgress / keyUIGrowTime));
     }
 
     private void FixedUpdate()
@@ -185,5 +205,20 @@ public class Player : MonoBehaviour
     {
         print("Died");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void CollectKey()
+    {
+        keyCollected = true;
+    }
+
+    public void UnlockDoor()
+    {
+        if (keyCollected)
+        {
+            keyCollected = false;
+            Time.timeScale = 0;
+            fadeScreen.FadeToBlack();
+        }
     }
 }

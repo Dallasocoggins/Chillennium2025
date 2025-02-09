@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 4055602988679628926}
   m_Layer: 2
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
   currentLightPoints: 10
   candlePointDrain: 0.1
   lightBurstCost: 4
-  candleOn: 1
+  keyUIGrowTime: 0.1
 --- !u!95 &4055602988679628926
 Animator:
   serializedVersion: 7
