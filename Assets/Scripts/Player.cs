@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -263,6 +264,22 @@ public class Player : MonoBehaviour
             animator.SetTrigger("lightBurst");
             candleEnergyUI.LightBurst();
         }
+    }
+
+    public void Eat()
+    {
+        animator.SetLayerWeight(0, 0);
+        animator.SetLayerWeight(1, 0);
+        animator.SetLayerWeight(2, 0);
+        animator.SetLayerWeight(3, 0);
+        animator.SetLayerWeight(4, 1);
+        StartCoroutine(DieAfterDelay(2f));
+    }
+
+    public IEnumerator DieAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Die();
     }
 
     public void Die()

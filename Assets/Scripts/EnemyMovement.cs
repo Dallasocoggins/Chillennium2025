@@ -121,8 +121,9 @@ public class EnemyMovement : MonoBehaviour
         {
             if (player != null)
             {
-                player.Die();
+                player.Eat();
                 eatingTime = 0f;
+                GetComponentInChildren<SpriteRenderer>().enabled = false;
             }
         }
     }
