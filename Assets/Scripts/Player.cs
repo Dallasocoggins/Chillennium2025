@@ -57,7 +57,8 @@ public class Player : MonoBehaviour
         get => _candleOn;
         private set {
             _candleOn = value;
-            candleEnergyUI.SetCandleOn(value);
+
+            if (candleEnergyUI != null) candleEnergyUI.SetCandleOn(value);
         }
     }
     private int keysCollected = 0;
