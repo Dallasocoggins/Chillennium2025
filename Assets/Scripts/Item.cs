@@ -20,6 +20,9 @@ public class Item : MonoBehaviour
     {
         start = transform.position;
         startScale = transform.localScale;
+
+        timePassed = Random.value * 10;
+        SetPosition();
     }
 
     // Update is called once per frame
@@ -38,10 +41,16 @@ public class Item : MonoBehaviour
         }
         else
         {
-            var displacement = Mathf.Sin(timePassed / bobPeriod * 2 * Mathf.PI) * bobHeight;
-            transform.position = start + Vector3.up * displacement;
+            SetPosition();
             timePassed += Time.deltaTime;
         }
+    }
+
+
+    private void SetPosition()
+    {
+        var displacement = Mathf.Sin(timePassed / bobPeriod * 2 * Mathf.PI) * bobHeight;
+        transform.position = start + Vector3.up * displacement;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
