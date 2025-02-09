@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     public float moveSpeed = 2f;
     public float jumpForce = 5f;
     public float groundCheckDistance = 0.5f;
-    public float lightCheckRadius = 5.0f;
+    public float lightCheckRadius = 3.0f;
     public Player player;
     public Transform target;
     public float teleportDistance = 10;
