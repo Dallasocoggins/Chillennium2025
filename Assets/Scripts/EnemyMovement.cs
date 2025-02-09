@@ -308,11 +308,6 @@ public class EnemyMovement : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTeleport, distanceToTeleport, LayerMask.GetMask("Light"));
 
-        if (teleportToTarget < 10 && hit.collider != null && hit.collider.CompareTag("Light"))
-        {
-            return hit.collider.GetComponent<LightPhysics>();
-        }
-
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, lightCheckRadius);
         foreach (Collider2D collider in colliders)
         {
@@ -320,6 +315,11 @@ public class EnemyMovement : MonoBehaviour
             {
                 return collider.GetComponent<LightPhysics>();
             }
+        }
+
+        if (hit.collider != null && hit.collider.CompareTag("Light"))
+        {
+            return hit.collider.GetComponent<LightPhysics>();
         }
 
         return null;
