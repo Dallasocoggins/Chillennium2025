@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
         if (jumpInput)
         {
             var epsilon = 0.01f;
-            if (IsGrounded(true, false) && jumpProgress == -1 && rigidbody.linearVelocityY < epsilon)
+            if (IsGrounded(true, false) && jumpProgress == -1 && rigidbody.linearVelocityY < epsilon && downInput)
             {
                 IsGrounded(true, true);
             }
