@@ -30,6 +30,7 @@ public class FadeScreen : MonoBehaviour
         if (fadeProgress >= fadeTime)
         {
             Debug.Log("Do something Dallas");
+            Application.Quit();
         }
     }
 
