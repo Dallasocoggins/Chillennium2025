@@ -1,4 +1,7 @@
+using System.Linq;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
@@ -12,8 +15,13 @@ public class MusicManager : MonoBehaviour
     public float ambientBassCooldown;
     public AudioClip ambientGong;
     public float ambientGongCooldown;
+    public float timeToMuteMusic;
+
+    public int[] menuSceneIds;
 
     private static MusicManager instance;
+
+    private AudioSource mainMenuAudioSource;
 
     private GameObject templateAudioPlayer;
     private float timeSinceTeleport;
@@ -38,7 +46,7 @@ public class MusicManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        mainMenuAudioSource = GetComponentInChildren<AudioSource>();
     }
 
     // Update is called once per frame
@@ -60,17 +68,29 @@ public class MusicManager : MonoBehaviour
             PlayAudio(ambientGong, false, Vector3.zero);
             timeSinceGong = 0;
         }
+
+        mainMenuAudioSource.volume = Mathf.Clamp01(
+            mainMenuAudioSource.volume + Time.deltaTime / timeToMuteMusic *
+            (InMenu() ? 1 : -1));
     }
 
-    private void PlayAudio(AudioClip clip, bool useSpatialAudio, Vector3 position)
+    private void PlayAudio(AudioClip clip, bool useSpatialAudio, Vector3 position, bool playInMenu = false)
     {
-        var audioPlayer = Instantiate(templateAudioPlayer, position, Quaternion.identity);
+        if (playInMenu || !InMenu())
+        {
+            var audioPlayer = Instantiate(templateAudioPlayer, position, Quaternion.identity);
 
-        var audioSource = audioPlayer.GetComponent<AudioSource>();
-        audioSource.clip = clip;
-        audioSource.spatialBlend = useSpatialAudio ? 1 : 0;
+            var audioSource = audioPlayer.GetComponent<AudioSource>();
+            audioSource.clip = clip;
+            audioSource.spatialBlend = useSpatialAudio ? 1 : 0;
 
-        audioPlayer.SetActive(true);
+            audioPlayer.SetActive(true);
+        }
+    }
+
+    private bool InMenu()
+    {
+        return menuSceneIds.Contains(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void MonsterTeleport(float distanceFromPlayer, Vector3 position)
