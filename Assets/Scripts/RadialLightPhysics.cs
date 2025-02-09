@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -33,7 +34,8 @@ public class RadialLightPhysics : LightPhysics
         {
             var angle = (float) i / points * 2 * Mathf.PI;
             var direction = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-            var hit = Physics2D.Raycast(transform.position, direction, lightRadius, 1 << 3);
+            var hits = Physics2D.RaycastAll(transform.position, direction, lightRadius, 1 << 3);
+            var hit = hits.FirstOrDefault((hit) => hit.collider.tag != "OneWayPlatform");
             var actualRadius = hit ? hit.distance : lightRadius;
             colliderPoints[i] = direction * actualRadius;
         }
