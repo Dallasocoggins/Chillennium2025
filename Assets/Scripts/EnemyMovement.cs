@@ -30,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
 
     public Queue<Vector3> positionQueue = new Queue<Vector3>();
     private float lastTeleportTime = 0;
-    private float timeTillTeleport = 3f;
+    private float timeTillTeleport = 10f;
 
     private List<LightPhysics> lightsOnMe = new List<LightPhysics>();
     private bool playerLightOnMe = false;
@@ -88,7 +88,7 @@ public class EnemyMovement : MonoBehaviour
     {
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
-        bool shouldTeleport = (yDist > 4 || xDist > 10);
+        bool shouldTeleport = (yDist > 4 || xDist > 7);
         playerLightOnMe = xDist < 6 && player.candleOn;
 
         if ((lightsOnMe.Count > 0 || playerLightOnMe) && onScreen)

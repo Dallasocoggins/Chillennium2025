@@ -79,7 +79,10 @@ public class Player : MonoBehaviour
         keyUI = GameObject.Find("KeyUI");
         fadeScreen = FindAnyObjectByType<FadeScreen>();
 
-        keyUI.transform.localScale = Vector3.zero;
+        if (keyUI != null)
+        {
+            keyUI.transform.localScale = Vector3.zero;
+        }
 
         ui = FindAnyObjectByType<UIScript>();
     }
@@ -115,7 +118,11 @@ public class Player : MonoBehaviour
         {
             keyUIProgress = Mathf.Max(keyUIProgress - Time.deltaTime, 0);
         }
-        keyUI.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, Mathf.SmoothStep(0, 1, keyUIProgress / keyUIGrowTime));
+
+        if (keyUI != null)
+        {
+            keyUI.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, Mathf.SmoothStep(0, 1, keyUIProgress / keyUIGrowTime));
+        }
     }
 
     private void FixedUpdate()

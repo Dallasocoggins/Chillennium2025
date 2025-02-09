@@ -44,6 +44,7 @@ public class FadeScreen : MonoBehaviour
         int buildIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (buildIndex < SceneManager.sceneCountInBuildSettings)
         {
+            Time.timeScale = 1.0f;
             SceneManager.LoadScene(buildIndex);
         }
     }
