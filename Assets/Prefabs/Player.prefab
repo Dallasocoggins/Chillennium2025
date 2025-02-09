@@ -398,7 +398,7 @@ MonoBehaviour:
   turnaroundAcceleration: 50
   restGroundedAcceleration: 15
   restAirAcceleration: 2
-  jumpSpeed: 7
+  jumpSpeed: 12
   timeToPeakJumpSpeed: 0.08
   sprite: {fileID: 2770050821045537506}
   baseCandleIntensity: 0

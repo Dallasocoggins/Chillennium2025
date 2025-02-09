@@ -133,7 +133,8 @@ public class Player : MonoBehaviour
 
         if (jumpInput)
         {
-            if (IsGrounded() && jumpProgress == -1)
+            var epsilon = 0.01f;
+            if (IsGrounded() && jumpProgress == -1 && rigidbody.linearVelocityY < epsilon)
             {
                 jumpProgress = 0;
                 animator.SetTrigger("jump");
@@ -169,7 +170,13 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         float epsilon = 0.1f;
-        return Physics2D.BoxCast((Vector2)transform.position + boxCollider.offset, boxCollider.size, 0, Vector2.down, epsilon, 1 << 3);
+        var hit = Physics2D.BoxCast((Vector2)transform.position + boxCollider.offset, boxCollider.size, 0, Vector2.down, epsilon, 1 << 3);
+        if (hit)
+        {
+            // If we hit a one-way platform that doesn't count
+            return !Physics2D.GetIgnoreCollision(boxCollider, hit.collider);
+        }
+        return false;
     }
 
     public void OnMove(InputValue value)
