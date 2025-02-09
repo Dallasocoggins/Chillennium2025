@@ -47,5 +47,8 @@ TagManager:
   - name: Lamp
     uniqueID: 332031429
     locked: 0
+  - name: TutorialText
+    uniqueID: 322999375
+    locked: 0
   m_RenderingLayers:
   - Default
