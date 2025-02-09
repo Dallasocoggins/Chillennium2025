@@ -60,7 +60,7 @@ MonoBehaviour:
   die: {fileID: 8300000, guid: bed466c53a4ec8a4e8925a26bcbcffe8, type: 3}
   eaten: {fileID: 8300000, guid: 184b5aea91392394fa8f9a724e1764f8, type: 3}
   timeToMuteMusic: 0.5
-  menuSceneIds: 00000000010000000400000005000000
+  menuSceneIds: 00000000010000000500000006000000
 --- !u!1 &8528569418765330285
 GameObject:
   m_ObjectHideFlags: 0
