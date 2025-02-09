@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isGrounded", IsGrounded());
         candleEnergyUI.proportionLeft = currentLightPoints / maxLightPoints;
         
-        if (transform.position.y < -10)
+        if (transform.position.y < -50)
         {
             Die();
         }
@@ -242,6 +242,15 @@ public class Player : MonoBehaviour
             keyCollected = false;
             Time.timeScale = 0;
             fadeScreen.FadeToBlack();
+        }
+    }
+
+    public void LoadNextScene()
+    {
+        int buildIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if(buildIndex < SceneManager.sceneCount - 1)
+        {
+            SceneManager.LoadScene(buildIndex);
         }
     }
 }
