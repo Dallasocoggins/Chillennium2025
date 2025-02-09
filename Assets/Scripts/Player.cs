@@ -268,11 +268,12 @@ public class Player : MonoBehaviour
 
     public void Eat()
     {
+        animator.SetLayerWeight(4, 1);
         animator.SetLayerWeight(0, 0);
         animator.SetLayerWeight(1, 0);
         animator.SetLayerWeight(2, 0);
         animator.SetLayerWeight(3, 0);
-        animator.SetLayerWeight(4, 1);
+        animator.SetTrigger("eaten");
         StartCoroutine(DieAfterDelay(2f));
     }
 
