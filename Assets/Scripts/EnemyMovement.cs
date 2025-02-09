@@ -39,6 +39,8 @@ public class EnemyMovement : MonoBehaviour
 
     public bool onScreen = false;
 
+    private MusicManager musicManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,6 +49,8 @@ public class EnemyMovement : MonoBehaviour
         StartCoroutine(RecordTransform());
         player = FindAnyObjectByType<Player>();
         target = player.transform;
+
+        musicManager = FindFirstObjectByType<MusicManager>();
     }
 
     private void Update()
@@ -85,7 +89,7 @@ public class EnemyMovement : MonoBehaviour
         float xDist = Math.Abs(this.transform.position.x - target.position.x);
         float yDist = Math.Abs(this.transform.position.y - target.position.y);
         bool shouldTeleport = (yDist > 4 || xDist > 10);
-        playerLightOnMe = xDist < 5.5 && player.candleOn;
+        playerLightOnMe = xDist < 6 && player.candleOn;
 
         if ((lightsOnMe.Count > 0 || playerLightOnMe) && onScreen)
         {
@@ -101,6 +105,11 @@ public class EnemyMovement : MonoBehaviour
         } else
         {
             currentState = EnemyState.Eating;
+        }
+
+        if(onScreen && xDist < 6 && yDist < 3 && currentState == EnemyState.Freeze)
+        {
+            musicManager.MonsterAppearsNextToPlayer();
         }
     }
 

@@ -42,7 +42,7 @@ public class FadeScreen : MonoBehaviour
     public void LoadNextScene()
     {
         int buildIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (buildIndex < SceneManager.sceneCountInBuildSettings - 1)
+        if (buildIndex < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(buildIndex);
         }
