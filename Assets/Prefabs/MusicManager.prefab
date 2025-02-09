@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7368939827795380028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3382735607980935026}
+  - component: {fileID: 1270340494282507229}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3382735607980935026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7368939827795380028}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1270340494282507229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7368939827795380028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a5f04504520444d8fe871ab6a3a73c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farDistanceToMonster: 8
+  teleportClips:
+  - {fileID: 8300000, guid: 5eab8d5dc4b62e14e8e4341a0b9021ee, type: 3}
+  - {fileID: 8300000, guid: b9f41d6c009b6c64394174d242b08864, type: 3}
+  jumpscare: {fileID: 0}
+  ambientBass: {fileID: 8300000, guid: 1532651b505080b4ab3e0e7948610319, type: 3}
+  ambientBassCooldown: 30
+  ambientGong: {fileID: 8300000, guid: c942377d97c510d4988e9224dc9862be, type: 3}
+  ambientGongCooldown: 20
