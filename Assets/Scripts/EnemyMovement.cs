@@ -200,8 +200,13 @@ public class EnemyMovement : MonoBehaviour
                 teleportLocation = FindNearestGroundPosition(teleportLocation);
             }
 
+            if (!onScreen)
+            {
+                musicManager.MonsterTeleport(this.transform.position);
+            }
+
             this.transform.position = teleportLocation;
-            musicManager.MonsterTeleport(Vector3.Distance(this.transform.position, target.position), this.transform.position);
+            
 
 
             SetTimeToTeleport();
@@ -297,6 +302,17 @@ public class EnemyMovement : MonoBehaviour
 
     private LightPhysics IsLightNearby(Vector3 position)
     {
+        Vector2 directionToTeleport = (position - transform.position).normalized;
+        float distanceToTeleport = Math.Abs(Vector3.Distance(transform.position, position));
+        float teleportToTarget = Math.Abs(Vector3.Distance(position, target.position));
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTeleport, distanceToTeleport, LayerMask.GetMask("Light"));
+
+        if (teleportToTarget < 10 && hit.collider != null && hit.collider.CompareTag("Light"))
+        {
+            return hit.collider.GetComponent<LightPhysics>();
+        }
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, lightCheckRadius);
         foreach (Collider2D collider in colliders)
         {
@@ -304,16 +320,6 @@ public class EnemyMovement : MonoBehaviour
             {
                 return collider.GetComponent<LightPhysics>();
             }
-        }
-
-        Vector2 directionToTeleport = (position - transform.position).normalized;
-        float distanceToTeleport = Vector3.Distance(transform.position, position);
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTeleport, distanceToTeleport, LayerMask.GetMask("Light"));
-
-        if (hit.collider != null && hit.collider.CompareTag("Light"))
-        {
-            return hit.collider.GetComponent<LightPhysics>();
         }
 
         return null;

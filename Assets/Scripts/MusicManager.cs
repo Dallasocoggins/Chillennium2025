@@ -93,9 +93,9 @@ public class MusicManager : MonoBehaviour
         return menuSceneIds.Contains(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void MonsterTeleport(float distanceFromPlayer, Vector3 position)
+    public void MonsterTeleport(Vector3 position)
     {
-        if (timeSinceTeleport > teleportCooldown && distanceFromPlayer > farDistanceToMonster)
+        if (timeSinceTeleport > teleportCooldown)
         {
             var index = (int)(teleportClips.Length * Random.value);
             if (index == teleportClips.Length)
