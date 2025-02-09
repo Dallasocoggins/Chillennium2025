@@ -271,6 +271,7 @@ public class Player : MonoBehaviour
             keyCollected = false;
             Time.timeScale = 0;
             fadeScreen.FadeToBlack();
+            LoadNextScene();
         }
     }
 
