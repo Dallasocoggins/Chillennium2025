@@ -107,7 +107,7 @@ public class EnemyMovement : MonoBehaviour
             currentState = EnemyState.Eating;
         }
 
-        if(onScreen && xDist < 6 && yDist < 3 && currentState == EnemyState.Freeze)
+        if(onScreen && xDist < 5 && yDist < 3 && currentState == EnemyState.Freeze)
         {
             musicManager.MonsterAppearsNextToPlayer();
         }
@@ -201,7 +201,7 @@ public class EnemyMovement : MonoBehaviour
                 teleportLocation = FindNearestGroundPosition(teleportLocation);
             }
 
-            if (!onScreen)
+            if (!onScreen && musicManager != null)
             {
                 musicManager.MonsterTeleport(this.transform.position);
             }
