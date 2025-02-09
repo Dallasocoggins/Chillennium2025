@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
             candleEnergyUI.SetCandleOn(value);
         }
     }
-    private bool keyCollected = false;
+    private int keysCollected = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
             Die();
         }
 
-        if (keyCollected)
+        if (keysCollected == 1)
         {
             keyUIProgress = Mathf.Min(keyUIProgress + Time.deltaTime, 1);
         }
@@ -253,7 +253,7 @@ public class Player : MonoBehaviour
 
     public void CollectKey()
     {
-        keyCollected = true;
+        keysCollected++;
     }
 
     public void CollectFlame()
@@ -261,11 +261,11 @@ public class Player : MonoBehaviour
         currentLightPoints = Mathf.Min(currentLightPoints + flameLightPoints, maxLightPoints);
     }
 
-    public void UnlockDoor()
+    public void UnlockDoor(Door door)
     {
-        if (keyCollected)
+        if (keysCollected == door.NumberOfKeysNeeded)
         {
-            keyCollected = false;
+            keysCollected = 0;
             Time.timeScale = 0;
             fadeScreen.FadeToBlack();
         }
