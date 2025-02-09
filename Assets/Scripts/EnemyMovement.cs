@@ -201,7 +201,7 @@ public class EnemyMovement : MonoBehaviour
             }
 
             this.transform.position = teleportLocation;
-            musicManager.MonsterTeleport(Vector3.Distance(this.transform.position, target.position));
+            musicManager.MonsterTeleport(Vector3.Distance(this.transform.position, target.position), this.transform.position);
 
 
             SetTimeToTeleport();
