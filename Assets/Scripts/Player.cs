@@ -270,13 +270,4 @@ public class Player : MonoBehaviour
             fadeScreen.FadeToBlack();
         }
     }
-
-    public void LoadNextScene()
-    {
-        int buildIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if(buildIndex < SceneManager.sceneCount - 1)
-        {
-            SceneManager.LoadScene(buildIndex);
-        }
-    }
 }

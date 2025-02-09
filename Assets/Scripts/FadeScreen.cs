@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
@@ -29,13 +30,21 @@ public class FadeScreen : MonoBehaviour
 
         if (fadeProgress >= fadeTime)
         {
-            Debug.Log("Do something Dallas");
-            Application.Quit();
+            LoadNextScene();
         }
     }
 
     public void FadeToBlack()
     {
         fading = true;
+    }
+
+    public void LoadNextScene()
+    {
+        int buildIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (buildIndex < SceneManager.sceneCount - 1)
+        {
+            SceneManager.LoadScene(buildIndex);
+        }
     }
 }
