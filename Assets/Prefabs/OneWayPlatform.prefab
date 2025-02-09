@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb1a56046729fc48bff04a92c1e453d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLetThroughCooldown: 0.4
