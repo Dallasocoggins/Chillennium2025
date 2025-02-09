@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UINormal
+  m_Name: UIExtinguish
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -31,7 +31,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
+        time: 0.875
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -43,7 +43,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: End
+    path: End/Flame
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 16
@@ -51,17 +51,27 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 7e3bc0dbfbf47b24db61f290ea49b5fa, type: 3}
+      value: {fileID: 21300000, guid: 9f5134da9c6dee34883dde5bd5be406f, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 216cc950a8726704282d9e7432a47cc1, type: 3}
+      value: {fileID: 21300000, guid: ab20b74588d687e4fb4d09cb44aabcc3, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: 69abaec61c53f5343938de47977f8ced, type: 3}
+      value: {fileID: 21300000, guid: 1e5659edb20bebc46a65bf8fe6d24ac0, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: c6e702f03b6d36042b1bfa5f33f838aa, type: 3}
+      value: {fileID: 21300000, guid: 182fcc08beabbd544a7bb263afaf0e71, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: b17c6cc890b66ae468decdb46173f413, type: 3}
+      value: {fileID: 21300000, guid: 8ea2d47ef965dd94f99a58401a15c00d, type: 3}
     - time: 0.41666666
-      value: {fileID: 21300000, guid: ea0aac90882d2ba4bb59e4b9ffc0ae67, type: 3}
+      value: {fileID: 21300000, guid: 568c26f82bf18544bab6fb501c0dd1c4, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 38efcc00c3359ef47a2681dc49eea80e, type: 3}
+    - time: 0.5833333
+      value: {fileID: 21300000, guid: 355789dddc350f64dbcff36c1cab6686, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: dde84c666243aff4cb3497fff26d9cf8, type: 3}
+    - time: 0.75
+      value: {fileID: 21300000, guid: baaa85d5fb9d50646ae5fdcae377e630, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 9fc372cc033ec044482cffc7cc3f7a42, type: 3}
     attribute: m_Sprite
     path: End/Flame
     classID: 114
@@ -75,7 +85,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 951154001
+      path: 1018428162
       attribute: 3305885265
       script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
       typeID: 114
@@ -93,18 +103,23 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 7e3bc0dbfbf47b24db61f290ea49b5fa, type: 3}
-    - {fileID: 21300000, guid: 216cc950a8726704282d9e7432a47cc1, type: 3}
-    - {fileID: 21300000, guid: 69abaec61c53f5343938de47977f8ced, type: 3}
-    - {fileID: 21300000, guid: c6e702f03b6d36042b1bfa5f33f838aa, type: 3}
-    - {fileID: 21300000, guid: b17c6cc890b66ae468decdb46173f413, type: 3}
-    - {fileID: 21300000, guid: ea0aac90882d2ba4bb59e4b9ffc0ae67, type: 3}
+    - {fileID: 21300000, guid: 9f5134da9c6dee34883dde5bd5be406f, type: 3}
+    - {fileID: 21300000, guid: ab20b74588d687e4fb4d09cb44aabcc3, type: 3}
+    - {fileID: 21300000, guid: 1e5659edb20bebc46a65bf8fe6d24ac0, type: 3}
+    - {fileID: 21300000, guid: 182fcc08beabbd544a7bb263afaf0e71, type: 3}
+    - {fileID: 21300000, guid: 8ea2d47ef965dd94f99a58401a15c00d, type: 3}
+    - {fileID: 21300000, guid: 568c26f82bf18544bab6fb501c0dd1c4, type: 3}
+    - {fileID: 21300000, guid: 38efcc00c3359ef47a2681dc49eea80e, type: 3}
+    - {fileID: 21300000, guid: 355789dddc350f64dbcff36c1cab6686, type: 3}
+    - {fileID: 21300000, guid: dde84c666243aff4cb3497fff26d9cf8, type: 3}
+    - {fileID: 21300000, guid: baaa85d5fb9d50646ae5fdcae377e630, type: 3}
+    - {fileID: 21300000, guid: 9fc372cc033ec044482cffc7cc3f7a42, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 0.875
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -134,7 +149,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
+        time: 0.875
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -146,7 +161,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: End
+    path: End/Flame
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 16
