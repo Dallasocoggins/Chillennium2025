@@ -22,8 +22,10 @@ public class EnemyMovement : MonoBehaviour
     public float teleportDistance = 10;
     public float teleportOffset = 5.0f;
     public LayerMask groundLayer;
+    public float freezeTime;
 
     private Rigidbody2D rb;
+    private Animator animator;
     private EnemyState currentState = EnemyState.Chase;
 
     public Queue<Vector3> positionQueue = new Queue<Vector3>();
@@ -33,6 +35,7 @@ public class EnemyMovement : MonoBehaviour
     private List<LightPhysics> lightsOnMe = new List<LightPhysics>();
     private bool playerLightOnMe = false;
     private float eatingTime;
+    private float freezeTimeLeft;
 
     public bool onScreen = false;
 
@@ -40,9 +43,16 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         StartCoroutine(RecordTransform());
         player = FindAnyObjectByType<Player>();
         target = player.transform;
+    }
+
+    private void Update()
+    {
+        float speedMultiplier = currentState == EnemyState.Freeze && freezeTimeLeft <= 0 ? 0 : 1;
+        animator.SetFloat("speedMultiplier", speedMultiplier);
     }
 
     void FixedUpdate()

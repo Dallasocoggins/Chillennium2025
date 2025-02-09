@@ -144,9 +144,6 @@ public class Player : MonoBehaviour
         if (jumpInput)
         {
             var epsilon = 0.01f;
-            Debug.Log(IsGrounded(true, false));
-            Debug.Log(jumpProgress);
-            Debug.Log(rigidbody.linearVelocityY);
             if (IsGrounded(true, false) && jumpProgress == -1 && rigidbody.linearVelocityY < epsilon)
             {
                 IsGrounded(true, true);
