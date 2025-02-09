@@ -205,6 +205,7 @@ public class Player : MonoBehaviour
             Instantiate(lightBurstPrefab, candle.transform.position, Quaternion.identity);
             lightBurstCurrentCooldown = lightBurstCooldown;
             currentLightPoints -= lightBurstCost;
+            animator.SetTrigger("lightBurst");
         }
     }
 
