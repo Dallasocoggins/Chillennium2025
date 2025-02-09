@@ -49,7 +49,15 @@ public class Player : MonoBehaviour
 
     private float moveInput;
     private bool jumpInput;
-    public bool candleOn { get; private set; } = true;
+    private bool _candleOn = true;
+    public bool candleOn
+    {
+        get => _candleOn;
+        private set {
+            _candleOn = value;
+            candleEnergyUI.SetCandleOn(value);
+        }
+    }
     private bool keyCollected = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -206,6 +214,7 @@ public class Player : MonoBehaviour
             lightBurstCurrentCooldown = lightBurstCooldown;
             currentLightPoints -= lightBurstCost;
             animator.SetTrigger("lightBurst");
+            candleEnergyUI.LightBurst();
         }
     }
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 304693a04cf4cdb418b710eb30d17965
+guid: 7bf1a13f99981c649b89b58dbf72828b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3993541531919551502
-    second: CandleOff_0
+      213: -2835075786224767931
+    second: CandleOff 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CandleOff_0
+      name: CandleOff 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 29
         width: 76
-        height: 37
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2f37a2aa2271498c0800000000000000
-      internalID: -3993541531919551502
+      spriteID: 54ce2c2e799c7a8d0800000000000000
+      internalID: -2835075786224767931
       vertices: []
       indices: 
       edges: []
@@ -138,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7371cc83e58cf95458fc231bf9f40f87
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CandleOff_0: -3993541531919551502
+      CandleOff 1_0: -2835075786224767931
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
