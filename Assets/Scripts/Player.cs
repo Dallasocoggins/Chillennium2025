@@ -268,6 +268,7 @@ public class Player : MonoBehaviour
     public void Die()
     {
         print("Died");
+        FindAnyObjectByType<MusicManager>().Die();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

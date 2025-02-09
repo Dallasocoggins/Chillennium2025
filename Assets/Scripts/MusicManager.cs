@@ -1,5 +1,4 @@
 using System.Linq;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +14,7 @@ public class MusicManager : MonoBehaviour
     public float ambientBassCooldown;
     public AudioClip ambientGong;
     public float ambientGongCooldown;
+    public AudioClip die;
     public float timeToMuteMusic;
 
     public int[] menuSceneIds;
@@ -104,6 +104,7 @@ public class MusicManager : MonoBehaviour
             }
             var clip = teleportClips[index];
             PlayAudio(clip, true, position);
+            timeSinceTeleport = 0;
         }
     }
 
@@ -113,5 +114,10 @@ public class MusicManager : MonoBehaviour
             PlayAudio(jumpscare, false, Vector3.zero);
             timeSinceJumpscare = 0;
         }
+    }
+
+    public void Die()
+    {
+        PlayAudio(die, false, Vector3.zero);
     }
 }
