@@ -7,6 +7,7 @@ public class SceneChanger : MonoBehaviour
 {
     public void ChangeScene(string sceneName)
     {
+        Time.timeScale = 1.0f;
         if (!string.IsNullOrEmpty(sceneName))
         {
             SceneManager.LoadScene(sceneName); 

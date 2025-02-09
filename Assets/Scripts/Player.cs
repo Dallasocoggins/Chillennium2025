@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
     }
     private int keysCollected = 0;
 
+    private UIScript ui;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -78,6 +80,8 @@ public class Player : MonoBehaviour
         fadeScreen = FindAnyObjectByType<FadeScreen>();
 
         keyUI.transform.localScale = Vector3.zero;
+
+        ui = FindAnyObjectByType<UIScript>();
     }
 
     // Update is called once per frame
@@ -93,7 +97,10 @@ public class Player : MonoBehaviour
         }
         animator.SetInteger("moveSign", moveSign);
         animator.SetBool("isGrounded", IsGrounded());
-        candleEnergyUI.proportionLeft = currentLightPoints / maxLightPoints;
+        if (candleEnergyUI != null)
+        {
+            candleEnergyUI.proportionLeft = currentLightPoints / maxLightPoints;
+        }
         
         if (transform.position.y < -50)
         {
@@ -222,6 +229,11 @@ public class Player : MonoBehaviour
     public void OnDown(InputValue value)
     {
         downInput = value.isPressed;
+    }
+
+    public void OnPause(InputValue value)
+    {
+        ui.TogglePause();
     }
 
     public void OnLightToggle()
